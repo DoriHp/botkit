@@ -32,13 +32,15 @@ if (!process.env.verify_token) {
     usage_tip();
     process.exit(1);
 }
-
+var mongoStorage = require('botkit-storage-mongo')({mongoUri: 'mongodb://tester:tester123@localhost:27017/express-demo', tables: ['users']})
 var Botkit = require('botkit');
 var debug = require('debug')('botkit:main');
 
 // Create the Botkit controller, which controls all instances of the bot.
 var controller = Botkit.facebookbot({
     // debug: true,
+    storage: mongoStorage,
+    stats_optout: true,
     verify_token: process.env.verify_token,
     access_token: process.env.page_token,
     studio_token: process.env.studio_token,

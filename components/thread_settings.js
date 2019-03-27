@@ -9,38 +9,35 @@ module.exports = function(controller) {
     controller.api.thread_settings.get_started('sample_get_started_payload');
     controller.api.thread_settings.menu([
         {
-            "locale": "default",
-            "composer_input_disabled": false,
-            "call_to_actions": [    
-                {
-                    "type":"postback",
-                    "title":"Hello",
-                    "payload":"hello"
-                },
-                {
-                    "type":"postback",
-                    "title":"Help",
-                    "payload":"help"
-                },
-                {
-                  "type":"nested",
-                  "title":"Botkit Docs",
-                  "call_to_actions": [
-                      {
-                        type: "web_url",
-                        "title": "Facebook Docs",
-                        "url":"https://github.com/howdyai/botkit/blob/master/docs/readme-facebook.md",
-                        "webview_height_ratio":"full",
-                      },
-                      {
-                        type: "web_url",
-                        "title": "Main Readme",
-                        "url":"https://github.com/howdyai/botkit/blob/master/readme.md",
-                        "webview_height_ratio":"full",
-                      }                    
-
-                  ]
-                }
-            ]
-        }]);
+        "locale":"default",
+        "composer_input_disabled":false,
+        "call_to_actions":[
+            {
+                "title":"My Skills",
+                "type":"nested",
+                "call_to_actions":[
+                    {
+                        "title":"Hello",
+                        "type":"postback",
+                        "payload":"Hello"
+                    },
+                    {
+                        "title":"Hi",
+                        "type":"postback",
+                        "payload":"Hi"
+                    }
+                ]
+            },
+            {
+                "type":"web_url",
+                "title":"Botkit Docs",
+                "url":"https://github.com/howdyai/botkit/blob/master/readme-facebook.md",
+                "webview_height_ratio":"full"
+            }
+        ]
+    },
+    {
+        "locale":"zh_CN",
+        "composer_input_disabled":false
+    }]);
 }

@@ -21,11 +21,25 @@ module.exports = function(controller) {
                 convo.say('Cool, I like ' + response.text + ' too!');
                 convo.next();
 
-            });
-        });
+            })
+        })
 
-    });
+    })
 
+    controller.hears(['user'], 'message_received', function(bot, message) {
+
+        controller.storage.users.find({name:{
+            '$eq': 'Toan'
+        }}, function(err, user) {
+            if(!err){
+                bot.reply(message, 'Password: ' + user.password + '!!!')
+            }else{
+               bot.reply('Finding error: ' + err) 
+            }
+            
+        })
+
+    })
 
     controller.hears(['question'], 'message_received', function(bot, message) {
 
