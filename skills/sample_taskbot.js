@@ -73,6 +73,25 @@ module.exports = function(controller) {
 
     });
 
+    controller.hears(['check'],'message_received', function(bot, message) {
+
+        var user = '2137451023011934'
+        controller.storage.users.get(user, function(err, user) {
+
+            if (err) {
+                bot.reply(message, 'I experienced an error adding your task: ' + err);
+            } else {
+                var text = 'Here are your current tasks: \n' +
+                generateTaskList(user) +
+                'Reply with `done _number_` to mark a task completed.';
+
+                bot.reply(message, text);
+            }
+
+        });
+
+    });
+
     // listen for a user saying "done <number>" and mark that item as done.
     controller.hears(['done (.*)'],'message_received', function(bot, message) {
 
