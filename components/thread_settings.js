@@ -88,11 +88,6 @@ module.exports = function(controller) {
                         if(validEmail(response.text) === true){
                             controller.storage.users.get(user, function(err, user) {
 
-                                if (!user) {
-                                    user = {};
-                                    user.id = id
-                                }
-
                                 user.email = response.text
 
                                 controller.storage.users.save(user, function(err,saved) {

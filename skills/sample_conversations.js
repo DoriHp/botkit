@@ -11,14 +11,13 @@ through the conversation are chosen based on the user's response.
 
 module.exports = function(controller) {
 
-
+    var request = require('request')
     controller.hears(['input'], 'message_received', function(bot, message){
 
         bot.startConversation(message, function(err, convo){
             convo.say('This is an example of using Spellcheck API and mongoStorage')
             convo.ask('Input a sentences here:', function(response, convo){
                 //set option for request api
-                var request = require('request')
                 var options = {
                     method: 'GET',
                     uri: "https://montanaflynn-spellcheck.p.rapidapi.com/check/?text=" + response.text,
@@ -84,14 +83,54 @@ module.exports = function(controller) {
     controller.hears(['color'], 'message_received', function(bot, message) {
 
         bot.startConversation(message, function(err, convo) {
+            
             convo.say('This is an example of using convo.ask with a single callback.');
 
             convo.ask('What is your favorite color?', function(response, convo) {
 
                 convo.say('Cool, I like ' + response.text + ' too!');
                 convo.next();
-
             })
+
+        })
+
+    })
+
+    var pattern_api = new RegExp(/^employee\s[0-9]{4}$/gm)
+
+    controller.hears([pattern_api], 'message_received', function(bot, message) {
+
+        bot.startConversation(message, function(err, convo) {
+            
+            var id = message.text.substring(9)
+
+            // convo.say(' id isl ' + id);
+            
+            var option = {
+                method: 'GET',
+                url: 'http://dummy.restapiexample.com/api/v1/employee/' + id
+            }
+
+            function callback(err, response, body){
+                convo.say('Your result for id = ' + id + ':')
+                if(err) {
+                    debug('Error occured!')
+                    throw new Error(err)
+                }
+                console.log(body)
+                let info = JSON.parse(body)
+                
+                let result = ''
+                Object.entries(info).forEach(entry => {
+                  let key = entry[0];
+                  let value = entry[1];
+                  result += key + ":" + value + "\n"
+                })
+                convo.say(result)
+            }
+
+            request(option, callback)
+            convo.next()
         })
 
     })
