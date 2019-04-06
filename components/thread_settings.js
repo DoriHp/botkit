@@ -81,7 +81,7 @@ module.exports = function(controller) {
 
             //ask for user's email
 
-            convo.addQuestion({text : 'What is your email'}, [
+            convo.addQuestion({text : 'What is your email?'}, [
                 {
                     default: true,
                     callback: function(response, convo) {
@@ -126,7 +126,7 @@ module.exports = function(controller) {
 
             //thread when user say 'no'
             convo.addMessage({
-                text: 'Cheese! It is not for everyone.',
+                text: 'Question! It is not for everyone.',
                 action: 'stop', // this marks the converation as unsuccessful
             },'no_thread');
 

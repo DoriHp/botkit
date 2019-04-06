@@ -26,6 +26,22 @@ module.exports = function(controller) {
                     }
                 };
 
+                convo.task.timeLimit = 3000
+
+                // convo.on('end',function(convo) {
+
+                //   if (convo.status=='timeout') {
+                //     // do something useful with the users responses
+                //         convo.say('Oh no, our time has expired!!!')
+                //     }
+                // })
+
+                // convo.setTimeout(3000)
+
+                convo.addMessage({
+                    text : 'Oh no, our time has expired!!!'
+                }, 'on_timeout')
+
                 function callback(err, response, body){
                     let result = JSON.parse(body)
                     if(result.original !== result.suggestion){
@@ -43,6 +59,7 @@ module.exports = function(controller) {
                                 convo.gotoThread('no_thread');
                             },
                         },
+                    
                         {
                             default: true,
                             callback: function(response, convo) {
@@ -75,9 +92,9 @@ module.exports = function(controller) {
 
                 request(options, callback)
 
-                //Ask user to choose what is right
+                    //Ask user to choose what is right
+                })
             })
-        })
     })
 
     controller.hears(['color'], 'message_received', function(bot, message) {
