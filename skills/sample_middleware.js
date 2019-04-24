@@ -10,9 +10,10 @@ module.exports = function(controller) {
 
         controller.storage.users.get(message.user, function(err, user){
 
-            if (!user) {
-                user = {};
+            if (!user ) {
+                user = {}
                 user.id = message.user
+                user.email = ''
                 user.history = []
                 user.reply = []
             }
@@ -23,8 +24,15 @@ module.exports = function(controller) {
             })
         })
 
+        function firstEntity(nlp, name) {
+            return nlp && nlp.entities && nlp.entities[name] && nlp.entities[name][0];
+        }
         // do something...
-        console.log('RCVD:', message);
+        // console.log('RCVD:', message);
+        if(message.nlp && firstEntity(message.nlp, 'intent')){
+            let intent = message.nlp.entities.intent
+            console.log(intent)
+        }
         next();
     
     });
@@ -39,16 +47,16 @@ module.exports = function(controller) {
             time: date
         }
 
-        // controller.storage.users.get(message.to, function(err, user){
+        controller.storage.users.get(message.to, function(err, user){
 
-        //     user.reply.push(item)
-        //     controller.storage.users.save(user, function(err, user){
-        //         if (err) console.log('Something went wrong!' + err);
-        //     })
-        // })
+            user.reply.push(item)
+            controller.storage.users.save(user, function(err, user){
+                if (err) console.log('Something went wrong!' + err);
+            })
+        })
 
         // do something...
-        console.log('SEND:', message);
+        // console.log('SEND:', message);
         next();
     
     });

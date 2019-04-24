@@ -7,14 +7,19 @@ module.exports = function(controller){
 		    "attachment":{
 		      "type":"template",
 		      "payload":{
-		        "template_type":"button",
-		        "text":"Wanna get some info?#2",
-		        "buttons":[
-		          {
-		            "type":"web_url",
-		            "url":"https://www.facebook.com/RelieableAssistance2",
-		            "title":"Visit my profile"
-		          }
+		        "template_type":"generic",
+		        "elements":[
+		        	{
+					    "title":"Wanna get some my info?",
+					    "image_url":"https://platform-lookaside.fbsbx.com/platform/profilepic/?psid=2137451023011934&width=1024&ext=1557762132&hash=AeQ7H6W4kesgIroD",
+					    "subtitle":"Visit my profile 👉",
+					    "default_action": {
+					        "type": "web_url",
+					        "url": "https://www.facebook.com/RelieableAssistance2",
+					        "messenger_extensions": "FALSE",
+					        "webview_height_ratio": "FULL"
+				    	}    
+				    }
 		        ]
 		      }
 		    }
@@ -25,7 +30,7 @@ module.exports = function(controller){
 	    // option for broadcast message
 		var message = {
 			message_creative_id : message_creative_id
-			// schedule_time : "2019-04-08T16:05:00+07:00"
+			// schedule_time : "2019-04-08T17:05:00+07:00"
 		}
 		//sending process
 		controller.api.broadcast.send(message, function(err, body){

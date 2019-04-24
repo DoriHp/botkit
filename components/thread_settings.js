@@ -86,9 +86,11 @@ module.exports = function(controller) {
                     default: true,
                     callback: function(response, convo) {
                         if(validEmail(response.text) === true){
-                            controller.storage.users.get(user, function(err, user) {
 
-                                user.email = response.text
+                            var email = response.text
+                            controller.storage.users.get(id, function(err, user) {
+
+                                user.email = email
 
                                 controller.storage.users.save(user, function(err,saved) {
 
@@ -98,8 +100,8 @@ module.exports = function(controller) {
                                         convo.gotoThread('valid_email')
                                     }
 
-                                });
-                            });
+                                })
+                            })
                         }else{
                             convo.gotoThread('invalid_email')
                         }
