@@ -32,7 +32,7 @@ if (!process.env.verify_token) {
     usage_tip();
     process.exit(1);
 }
-var mongoStorage = require('botkit-storage-mongo')({mongoUri: 'mongodb://tester:tester123@localhost:27017/express-demo', tables: ['users']})
+var mongoStorage = require('botkit-storage-mongo')({mongoUri: 'mongodb://tester:tester123@localhost:27017/express-demo', tables: ['users', 'scripts']})
 var Botkit = require('botkit');
 var debug = require('debug')('botkit:main');
 
@@ -62,6 +62,8 @@ require(__dirname + '/components/onboarding.js')(controller);
 
 // Load in some helpers that make running Botkit on Glitch.com better
 require(__dirname + '/components/plugin_glitch.js')(controller);
+
+// require(__dirname + '/skills/get_trigger.js')(webserver, controller);
 
 var normalizedPath = require("path").join(__dirname, "skills");
 require("fs").readdirSync(normalizedPath).forEach(function(file) {

@@ -5,7 +5,6 @@ var debug = require('debug')('botkit:webserver');
 
 module.exports = function(controller, bot) {
 
-
     var webserver = express();
     webserver.use(bodyParser.json());
     webserver.use(bodyParser.urlencoded({ extended: true }));
@@ -21,7 +20,7 @@ module.exports = function(controller, bot) {
 
     webserver.listen(process.env.PORT || 3000, null, function() {
 
-        debug('Express webserver configured and listening at http://localhost:' + process.env.PORT || 3000);
+        debug('Express webserver configured and listening at http://localhost:' + process.env.PORT || 4000);
 
     });
 
@@ -30,6 +29,8 @@ module.exports = function(controller, bot) {
     require("fs").readdirSync(normalizedPath).forEach(function(file) {
       require("./routes/" + file)(webserver, controller);
     });
+
+    // require('fs').readFileSync('../skills/get_trigger.js')(webserver, controller)
 
     controller.webserver = webserver;
 

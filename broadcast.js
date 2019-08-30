@@ -18,6 +18,7 @@ module.exports = function(controller){
 					        "url": "https://www.facebook.com/RelieableAssistance2",
 					        "messenger_extensions": "FALSE",
 					        "webview_height_ratio": "FULL"
+					        // "fallback_url": "https://google.com"
 				    	}    
 				    }
 		        ]
